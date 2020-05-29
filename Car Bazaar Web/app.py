@@ -76,8 +76,8 @@ def predict(make,model,fuel,body,year,km,badgeo,city):
     badge = int(le_badge_transformed.transform([badge])[0])
     city = int(le_coordinates2city.transform([city])[0])
     pred = regressor.predict(np.array([make, model, fuel, body, year, km, badge, city, datetime_year, datetime_month]).reshape(1,-1))
-    pred1 = pred[0]-error
-    pred2 = pred[0]+error
+    pred1 = round(pred[0]-error)
+    pred2 = round(pred[0]+error)
     return str(pred1)+" - "+str(pred2)
 
 app = Flask(__name__)

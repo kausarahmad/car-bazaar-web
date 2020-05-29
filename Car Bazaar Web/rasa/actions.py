@@ -36,7 +36,7 @@ class ActionSave(Action):
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Helvetica", size=16)
-        pdf.image("C:\\Users\\kausa\\Desktop\\Car Bazaar Web\\Car Bazaar Web\\img\\logo\\logo-small.png", x = 15, y = 5, w = 20)
+        pdf.image("C:\\Users\\kausa\\Desktop\\Car Bazaar Web\\Car Bazaar Web\\static\\img\\logo-small.png", x = 15, y = 5, w = 20)
         pdf.ln(1)
         pdf.cell(200, 10, txt="Here's the conversation you had with us!", ln=2, align="C")
         pdf.set_font("Helvetica", size=12)
