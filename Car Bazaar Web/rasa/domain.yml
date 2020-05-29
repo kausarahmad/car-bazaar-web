@@ -43,10 +43,12 @@ responses:
   - text: "Did that help you?"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "See ya!"
+  - text: "Nice talking to you!"
+  - text: "Adios!"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "I am a bot, beep boop."
   
   utter_dont_panic:
   - text: "You seem panicked. Take a deep breath."
