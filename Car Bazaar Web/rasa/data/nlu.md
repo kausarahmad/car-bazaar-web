@@ -27,27 +27,22 @@
 - no way
 - not really
 
-## intent:mood_great
-- perfect
-- very good
-- great
-- amazing
-- wonderful
-- I am feeling very good
-- I am great
-- I'm good
+## intent:change_make
+- change the brand to [hyundai](make)
+- change the car to [nissan](make)
+- i want to find out about [subaru](make)
+- let's look at a [rover](make) instead
+- tell me about [ford](make) instead
+- change the make back to [subaru](make)
+- change the car company to a [smart](make)
 
-## intent:mood_unhappy
-- sad
-- very sad
-- unhappy
-- bad
-- very bad
-- awful
-- terrible
-- not very good
-- extremely sad
-- so sad
+## intent:which_city_cheaper
+- in which city would this car be cheaper?
+- from where can I buy this car cheapest?
+- which city would sell a low cost car?
+- where would this car be lowest cost?
+- if I want a cheap car with these specifications, which city should I buy in?
+- which city has the most economical rates for this car?
 
 ## intent:bot_challenge
 - are you a bot?
