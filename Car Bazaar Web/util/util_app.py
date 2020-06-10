@@ -49,7 +49,7 @@ def fetch_img(query):
         os.remove(f)
 
     #query and download the image from the internet
-    gis = GoogleImagesSearch('AIzaSyCR0DCaMCyhKNU8Sxnlg9d5gDoRfGqlF4E', '016040578520524185149:aj1ixvinhes')
+    gis = GoogleImagesSearch('xyz', 'abc')
 
     _search_params = {
         'q': query,
