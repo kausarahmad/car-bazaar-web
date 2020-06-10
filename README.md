@@ -14,6 +14,6 @@ With the model trained, the next step was to develop a chatbot that understood n
 ## Web Application
 The web application is integrated with the Rasa chatbot through its REST API and through Flask and its front-end is designed with the help of JavaScript, HTML, and CSS.
 
-![Webpage](screenshots/1.jpg)
-![Webpage](screenshots/2.jpg)
-![Webpage](screenshots/3.jpg)
+![Webpage](screenshots/1.png)
+![Webpage](screenshots/2.png)
+![Webpage](screenshots/3.png)
