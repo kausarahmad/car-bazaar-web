@@ -1,5 +1,5 @@
 # Car Bazaar
-Car Bazaar is a chatbot to assist car buyers and sellers in deciding when, where, and which cars are most profitable. The chatbot has been designed with the help of Rasa. The project is accessible as a web and mobile application.
+Car Bazaar is a chatbot to assist car buyers and sellers in deciding when, where, and which cars are most profitable. The chatbot has been designed with the help of Rasa. The project is accessible as a web application.
 
 # Modules of The Project
 ## Data Cleaning
