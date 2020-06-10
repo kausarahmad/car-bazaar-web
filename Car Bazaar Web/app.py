@@ -5,80 +5,15 @@ import datetime
 from flask import Flask, render_template, request
 
 import sys
-sys.path.insert(1, sys.path[0]+'\\util')
-from transformations import transform_badge
+sys.path.insert(1, "C:\\Users\\kausa\\Desktop\\Car Bazaar Web\\Car Bazaar Web\\util\\")
 from util_database import *
+from util_app import *
 
 from google_images_search import GoogleImagesSearch
 import os
 import glob
 
-def fetch_img(query):
-
-    files = glob.glob(sys.path[0]+'\\static\\img\\chat page car\\*')
-    for f in files:
-        os.remove(f)
-
-    gis = GoogleImagesSearch('AIzaSyCR0DCaMCyhKNU8Sxnlg9d5gDoRfGqlF4E', '016040578520524185149:aj1ixvinhes')
-
-    _search_params = {
-        'q': query,
-        'num': 10,
-        'fileType': 'jpg'
-    }
-
-    gis.search(search_params=_search_params)
-    for image in gis.results():
-        image.download(sys.path[0]+"\\static\\img\\chat page car")
-
-    fnames = os.listdir(sys.path[0]+'\\static\\img\\chat page car\\')
-    if len(fnames)>=1:
-        return fnames[0]
-    else:
-        _search_params = {
-        'q': query,
-        'num': 20,
-        'fileType': 'jpg'
-        }
-
-        gis.search(search_params=_search_params)
-        for image in gis.results():
-            image.download(sys.path[0]+"\\static\\img\\chat page car")
-
-        fnames = os.listdir(sys.path[0]+'\\static\\img\\chat page car\\')
-        return fnames[0]
-
-def predict(make,model,fuel,body,year,km,badgeo,city):
-    error = 100
-
-    now = datetime.datetime.now()
-    datetime_year = int(now.strftime("%Y"))
-    datetime_month = int(now.strftime("%m"))
-    badge = transform_badge(badgeo)
-    make = get_make(make)
-    model = get_model(model)
-    fuel = get_fuel(fuel)
-    body = get_body(body)
-    
-    #LOAD MODEL
-    pkl_file_badge = open('models/LE01-badge_transformed.pkl', 'rb')
-    le_badge_transformed = pickle.load(pkl_file_badge) 
-    pkl_file_badge.close()
-
-    pkl_file_coordinates = open('models/LE01-coordinates2city.pkl', 'rb')
-    le_coordinates2city = pickle.load(pkl_file_coordinates) 
-    pkl_file_coordinates.close()
-    
-    filename = 'models/M01-RandomForestRegressor.sav'
-    regressor = pickle.load(open(filename, 'rb'))
-    
-    #PREDICT
-    badge = int(le_badge_transformed.transform([badge])[0])
-    city = int(le_coordinates2city.transform([city])[0])
-    pred = regressor.predict(np.array([make, model, fuel, body, year, km, badge, city, datetime_year, datetime_month]).reshape(1,-1))
-    pred1 = round(pred[0]-error)
-    pred2 = round(pred[0]+error)
-    return str(pred1)+" - "+str(pred2)
+import string
 
 app = Flask(__name__)
 
@@ -90,16 +25,22 @@ def send():
         badge = request.form['badge'].capitalize()
         fuel = request.form['fuel'].capitalize()
         body = request.form['body'].capitalize()
-        km = request.form['km']
+        mileage = request.form['km']
         year = request.form['year']
-        city = request.form['city'].capitalize()
+        city = string.capwords(request.form['city'])
 
         imgfilename = fetch_img(make+" "+model+" "+badge+" "+year+" "+body+" "+fuel)
 
-        price = predict(make,model,fuel,body,year,km,badge,city)
+        car_dict = save_dict(make, model, fuel, body, year, mileage, badge, city)
 
-        return render_template('chat.html', imgcar = "img/chat page car/" + imgfilename, price = price, make = make, model = model, 
-            badge = badge, fuel = fuel, body = body, km = km, year = year, city = city)
+        price_range, pric = predict([car_dict])
+
+        #save dict
+        with open('C:\\Users\\kausa\\Desktop\\Car Bazaar Web\\Car Bazaar Web\\util\\car_dict.pkl', 'wb') as f:
+            pickle.dump(car_dict, f, pickle.HIGHEST_PROTOCOL)
+
+        return render_template('chat.html', imgcar = "img/chat page car/" + imgfilename, price = price_range[0], make = make, model = model, 
+            badge = badge, fuel = fuel, body = body, km = mileage, year = year, city = city)
     return render_template('home.html')
 
 if __name__ == "__main__":

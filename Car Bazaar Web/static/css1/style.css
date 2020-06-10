@@ -9,7 +9,7 @@ body {
 	display: none;
 	width: 350px;
 	left: 15%;
-	height: 500px;
+	height: 625px;
 	bottom: 5%;
 	position: fixed;
 	background: #f7f7f7;
@@ -34,7 +34,7 @@ body {
 
 .chats {
 	/* display: none; */
-	height: 385px;
+	height: 525px;
 	padding: 2px;
 	border-radius: 1px;
 	overflow-y: scroll;
